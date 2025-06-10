@@ -1,7 +1,5 @@
 # Interactive Access and Visualization of Geospatial Data from the AWS Open Data Program
 
-**By Qiusheng Wu, Matt Putkoski, and Chris Stoner**
-
 ## Introduction
 
 Open data is reshaping how we understand and respond to global challenges. From climate change to disaster recovery, the ability to access and analyze large-scale geospatial datasets is critical for scientific research, policy-making, and real-world applications. Leading the charge are several open data initiatives designed to lower access barriers and accelerate innovation: the [AWS Open Data Program](https://aws.amazon.com/opendata), the [Amazon Sustainability Data Initiative (ASDI)](https://exchange.aboutamazon.com/data-initiative), and the [Maxar Open Data Program](https://registry.opendata.aws/maxar-open-data).
@@ -159,8 +157,6 @@ m
 
 ![image](https://github.com/user-attachments/assets/13184223-b5cc-4868-836b-39dbb05cdd70)
 
-+++
-
 This creates an interactive map centered on the earthquake region, with blue polygons showing the spatial coverage of each satellite image. You can zoom in, pan around, and click on individual footprints to see their metadata. This visualization helps us understand the geographic extent of the available imagery and identify areas with dense coverage.
 
 ### Temporal Analysis: Before and After the Earthquake
@@ -200,8 +196,6 @@ m
 ```
 
 ![image](https://github.com/user-attachments/assets/7c41b716-1b13-4754-857d-9df084e8bc26)
-
-+++
 
 In this visualization, red polygons represent pre-earthquake imagery while blue polygons show post-earthquake coverage. The `info_mode="on_click"` parameter enables interactive information popups when you click on any footprint. You can toggle layers on/off using the layer control panel, and the different colors help distinguish the temporal coverage patterns.
 
