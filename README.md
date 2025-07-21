@@ -11,3 +11,9 @@ A blog post for AWS Open Data
 
 - https://github.com/opengeos/maxar-open-data
 - https://github.com/opengeos/aws-open-data-stac
+
+## Export to PDF and DOCX
+
+```bash
+myst build --pdf --docx
+```
