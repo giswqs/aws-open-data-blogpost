@@ -32,7 +32,7 @@ Open data is reshaping how we understand and respond to global challenges. From 
 
 The **AWS Open Data Program** and the **Amazon Sustainability Data Initiative (ASDI)** work in tandem to democratize access to critical datasets that drive environmental research and innovation. While the AWS Open Data Program provides the foundational infrastructure by hosting a diverse range of datasets on Amazon Web Services—from satellite imagery to machine learning benchmarks—ASDI specifically leverages this framework to accelerate sustainability-focused research and solutions. Through strategic collaborations with organizations like NASA, NOAA, and the UN, these programs support open access to essential environmental datasets including weather forecasts, satellite observations, air quality indices, and hydrological models. These datasets are stored in Amazon S3, enabling cloud-native analysis without requiring massive local downloads. Researchers and developers can process data directly in the cloud using scalable tools like Amazon Athena, SageMaker, and open-source Python libraries, fostering solutions in critical areas such as climate resilience, renewable energy, conservation, and disaster risk management. Together, these complementary initiatives create a powerful ecosystem that enables global collaboration and drives real-world impact in addressing environmental challenges.
 
-The **Maxar Open Data Program** make their data available through AWS Open Data and ASDI to provide high-resolution satellite imagery in the aftermath of natural disasters and humanitarian crises. Unlike continuous monitoring programs, Maxar's initiative is event-driven—activated during emergencies such as hurricanes, wildfires, earthquakes, and conflicts. By releasing timely, publicly available imagery, Maxar empowers responders, analysts, and volunteers with actionable insights for damage assessment, response coordination, and recovery planning. More information about Maxar Open Data is available at [https://registry.opendata.aws/maxar-open-data](https://registry.opendata.aws/maxar-open-data/).
+The **Maxar Open Data Program** makes their data available through AWS Open Data and ASDI to provide high-resolution satellite imagery in the aftermath of natural disasters and humanitarian crises. Unlike continuous monitoring programs, Maxar's initiative is event-driven—activated during emergencies such as hurricanes, wildfires, earthquakes, and conflicts. By releasing timely, publicly available imagery, Maxar empowers responders, analysts, and volunteers with actionable insights for damage assessment, response coordination, and recovery planning. More information about Maxar Open Data is available at [https://registry.opendata.aws/maxar-open-data](https://registry.opendata.aws/maxar-open-data/).
 
 Together, these programs demonstrate the power of cloud-enabled open data to democratize access to geospatial information, promote global collaboration, and drive real-world impact. In this post, we demonstrate how to explore and visualize these datasets using interactive web applications and Jupyter notebooks.
 
@@ -95,7 +95,7 @@ The web app and the source code are available at:
 **How to use:**
 
 1. Visit the [Maxar Open Data Explorer](https://huggingface.co/spaces/giswqs/solara-maxar).
-2. Choose an event (e.g., _Libya_) from menu tab.
+2. Choose an event (e.g., _Libya_) from the menu tab.
 3. The application displays the imagery footprints on the map.
 4. Pick a start date to filter the imagery taken after the start date.
 5. Hover over any footprint to view its metadata displayed in the information panel in the lower left corner.
@@ -132,7 +132,7 @@ Here, we're importing `leafmap` for geospatial visualization and `geopandas` for
 
 ### Discovering Available Disaster Events
 
-The first step is to explore what disaster events are available in the Maxar Open Data catalog. Each collection in the catalog represents a single disaster event with associated satellite imagery:
+The first step is to explore which disaster events are available in the Maxar Open Data catalog. Each collection in the catalog represents a single disaster event with associated satellite imagery:
 
 ```{code-cell} ipython3
 leafmap.maxar_collections()
@@ -140,7 +140,9 @@ leafmap.maxar_collections()
 
 This function retrieves all available collections from the Maxar Open Data STAC (SpatioTemporal Asset Catalog) catalog. The output will show you a list of disaster events, each with a unique collection ID that we can use to access the specific imagery data.
 
-### Selecting a Disaster Event
+### Example 1: Turkey-Syria Earthquake (February 2023)
+
+#### Selecting the Disaster Event
 
 For this example, we'll focus on the devastating earthquake that struck Turkey and Syria in February 2023. The collection ID for this event is `Kahramanmaras-turkey-earthquake-23`. We can retrieve the geographic footprints of all available satellite images for this event from the [Maxar Open Data GitHub repository](https://github.com/opengeos/maxar-open-data), which provides both GeoJSON and TSV formats:
 
@@ -168,7 +170,7 @@ Here we're using GeoPandas to read the remote GeoJSON file directly from the URL
 - **timestamp**: When the image was captured
 - **visual**: Direct download link to the satellite image
 
-### Visualizing Image Footprints
+#### Visualizing Image Footprints
 
 Now let's create an interactive map to visualize where all these satellite images are located geographically:
 
@@ -184,7 +186,7 @@ m
 
 This creates an interactive map centered on the earthquake region, with blue polygons showing the spatial coverage of each satellite image. You can zoom in, pan around, and click on individual footprints to see their metadata. This visualization helps us understand the geographic extent of the available imagery and identify areas with dense coverage.
 
-### Temporal Analysis: Before and After the Earthquake
+#### Temporal Analysis: Before and After the Earthquake
 
 The earthquake struck on February 6, 2023, making temporal analysis crucial for damage assessment. Let's separate the imagery into pre-event and post-event datasets using the earthquake date as our temporal boundary.
 
@@ -208,7 +210,7 @@ post_gdf.head()
 
 By setting `start_date="2023-02-06"`, we retrieve all images captured from the earthquake date onwards. These post-event images will show the immediate aftermath and damage caused by the earthquake.
 
-### Comparing Pre-Event and Post-Event Coverage
+#### Comparing Pre-Event and Post-Event Coverage
 
 Let's create a comparative visualization showing both pre-event and post-event image footprints on the same map:
 
@@ -226,7 +228,7 @@ m
 
 In this visualization, red polygons represent pre-earthquake imagery while blue polygons show post-earthquake coverage. As expected with Maxar’s event-driven data acquisition, there are more post-earthquake images, since imagery is typically captured in response to the event. The `info_mode="on_click"` parameter enables interactive information popups when you click on any footprint. You can toggle layers on/off using the layer control panel, and the different colors help distinguish the temporal coverage patterns.
 
-### Selecting a Region of Interest
+#### Selecting a Region of Interest
 
 To focus our analysis on a specific area, we can define a region of interest (ROI). You can either draw a polygon on the map using the drawing tools, or we'll use predefined coordinates for a particularly affected area:
 
@@ -238,7 +240,7 @@ if bbox is None:
 
 The `m.user_roi_bounds()` function attempts to get the bounding box coordinates from any region you've drawn on the map. If no region is drawn, we fall back to predefined coordinates that cover a significantly impacted area near Kahramanmaraş. The bbox format follows [min_longitude, min_latitude, max_longitude, max_latitude] convention.
 
-### Searching Within the Region of Interest
+#### Searching Within the Region of Interest
 
 Now let's search for satellite images that specifically cover our region of interest, filtering by both geographic bounds and temporal constraints.
 
@@ -260,7 +262,7 @@ post_event.head()
 
 This gives us the corresponding post-earthquake imagery for the same geographic region, enabling direct before-and-after comparison.
 
-### Preparing Images for Visualization
+#### Preparing Images for Visualization
 
 Maxar organizes satellite images into tiles, where each tile can contain multiple individual images identified by unique quadkeys. Let's extract the tile identifiers we need for visualization:
 
@@ -278,7 +280,7 @@ post_tile
 
 Similarly, this extracts the catalog ID for the post-event tile. Having both pre- and post-event tile IDs allows us to create comparative visualizations.
 
-### Creating Web-Optimized Tile Services
+#### Creating Web-Optimized Tile Services
 
 To display these high-resolution satellite images efficiently in a web browser, we need to convert them to MosaicJSON format, which enables dynamic tiling and streaming:
 
@@ -296,7 +298,7 @@ post_stac
 
 Similarly, this creates the MosaicJSON URL for the post-event imagery. These URLs point to tile services that can stream the imagery directly to our interactive map.
 
-### Creating a Split-Map Comparison
+#### Creating a Split-Map Comparison
 
 Now comes the powerful part—creating a side-by-side comparison to visualize the earthquake's impact:
 
@@ -323,7 +325,7 @@ This creates an interactive split-screen map where you can:
 - **Divider**: Drag the vertical divider left or right to compare different parts of the scene
 - **Synchronization**: Both sides pan and zoom together, maintaining perfect geographic alignment
 
-### Downloading Images for Offline Analysis
+#### Downloading Images for Offline Analysis
 
 If you need to perform detailed analysis or store images locally, you can download the original high-resolution imagery:
 
@@ -353,8 +355,92 @@ The `leafmap.maxar_download()` function handles the download process, saving ima
 
 There are a lot more post-event images available for the Turkey earthquake. It may take a while to download all the images. Uncomment the above cell to download the post-event images if needed.
 
+### Example 2: Texas Flooding (July 2025)
+
+#### Accessing the Disaster Event Data
+
+In July 2025, destructive and deadly flooding took place in the Texas Hill Country, particularly in Kerr County. Let's explore how to visualize the Maxar imagery captured during this event.
+
+First, let's examine this disaster event collection:
+
+```{code-cell} ipython3
+collection = "Texas-Flooding-July-2025"
+url = leafmap.maxar_collection_url(collection, dtype="geojson")
+gdf = gpd.read_file(url)
+print(f"Total number of images: {len(gdf)}")
+gdf.head()
+```
+
+This loads the footprints and metadata for all available satellite images captured during the Texas flooding event. We can visualize the spatial coverage of the imagery:
+
+```{code-cell} ipython3
+m = leafmap.Map()
+m.add_gdf(gdf, layer_name="Footprints", zoom_to_layer=True)
+m
+```
+
+![image](https://github.com/user-attachments/assets/99bc92cb-cfff-47bc-a7ed-cd4197590c95)
+**Figure 6.** The interactive map shows the spatial coverage of the satellite images for the Texas flooding.
+
+For this event, we can examine the timing of image acquisitions:
+
+```{code-cell} ipython3
+sorted(gdf["datetime"])
+```
+
+Note that all the images were acquired after July 8, 2025, which is after the flooding event started on July 4, 2025. There are no pre-event images available for this event.
+
+Let's check the unique catalog IDs:
+
+```{code-cell} ipython3
+gdf["catalog_id"].unique()
+```
+
+There are 4 unique catalog IDs, which means there are 4 tiles in this collection.
+
+#### Preparing Images for Visualization
+
+Since this collection only contains post-event imagery, we can create a comparison between a standard satellite basemap and the Maxar post-flooding imagery. We'll use the first tile for demonstration:
+
+```{code-cell} ipython3
+post_tile = gdf["catalog_id"].unique()[0]
+post_stac = leafmap.maxar_tile_url(collection, post_tile, dtype="json")
+```
+
+#### Creating a Split-Map Comparison
+
+Now we'll create a split-map comparison showing standard satellite imagery alongside the flood imagery:
+
+```{code-cell} ipython3
+m = leafmap.Map()
+m.split_map(
+    left_layer="Esri.WorldImagery",
+    right_layer=post_stac,
+    left_label="Standard imagery",
+    right_label="Post-flooding",
+)
+m.set_center(-99.573265, 30.751277, 7)
+m
+```
+
+![image](https://github.com/user-attachments/assets/63efbbca-aeee-44ec-838b-92a76ae1efc5)
+**Figure 7.** The split map shows the standard imagery (left) and post-flooding imagery (right) for the Texas flooding.
+
+This visualization allows you to compare normal conditions (left side) with the flooding aftermath (right side), helping identify affected areas, assess damage extent, and support emergency response efforts.
+
+#### Downloading Images for Offline Analysis
+
+For offline analysis or detailed assessment, you can also download the high-resolution imagery:
+
+```{code-cell} ipython3
+post_images = gdf["visual"].tolist()
+# leafmap.maxar_download(post_images)
+```
+
+This example demonstrates how Maxar Open Data provides rapid access to critical imagery during ongoing disasters, enabling real-time assessment and response coordination.
+
 ## Conclusions
 
 Access to high-quality geospatial data is no longer limited to technical experts with large computing resources. Thanks to collaborations between open data initiatives like the AWS Open Data Program, ASDI, and the Maxar Open Data Program, coupled with intuitive tools like Leafmap and Solara, anyone can explore and visualize critical Earth data in minutes.
 
-Whether you're a researcher investigating climate trends, a student exploring land cover dynamics, or a volunteer aiding in disaster mapping, these tools offer a powerful gateway to cloud-hosted open data—turning raw datasets into actionable insight.
+Whether you're a researcher investigating climate trends, a student exploring land cover dynamics, or a volunteer aiding in disaster mapping, these tools offer a powerful gateway to cloud-hosted open data—turning raw datasets into actionable insights.
