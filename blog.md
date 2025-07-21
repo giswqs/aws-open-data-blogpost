@@ -1,30 +1,54 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.17.1
+# title: Interactive Access and Visualization of Geospatial Data from the AWS Open Data Program
+# authors:
+#   - name: Qiusheng Wu
+#     affiliations:
+#       - Amazon
+#       - The University of Tennessee, Knoxville
+#     orcid: 0000-0001-5437-4073
+#     email: qswu@amazon.com
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+exports:
+  - format: docx
+  - format: typst
+---
+
 # Interactive Access and Visualization of Geospatial Data from the AWS Open Data Program
+
+Qiusheng Wu, PhD, Associate Professor at the University of Tennessee, Knoxville, and Amazon Scholar
 
 ## Introduction
 
 Open data is reshaping how we understand and respond to global challenges. From climate change to disaster recovery, the ability to access and analyze large-scale geospatial datasets is critical for scientific research, policy-making, and real-world applications. Leading the charge are several open data initiatives designed to lower access barriers and accelerate innovation: the [AWS Open Data Program](https://aws.amazon.com/opendata), the [Amazon Sustainability Data Initiative (ASDI)](https://exchange.aboutamazon.com/data-initiative), and the [Maxar Open Data Program](https://registry.opendata.aws/maxar-open-data).
 
-The **AWS Open Data Program** hosts a diverse range of high-value datasets—from satellite imagery and climate models to genomics and machine learning benchmarks—on Amazon Web Services. These datasets are freely accessible and stored in Amazon S3, enabling cloud-native analysis without requiring massive local downloads. Researchers and developers can process data directly in the cloud using scalable tools like Amazon Athena, SageMaker, and open-source Python libraries. The registry of AWS Open Data is available at [https://registry.opendata.aws](https://registry.opendata.aws).
+The **AWS Open Data Program** and the **Amazon Sustainability Data Initiative (ASDI)** work in tandem to democratize access to critical datasets that drive environmental research and innovation. While the AWS Open Data Program provides the foundational infrastructure by hosting a diverse range of datasets on Amazon Web Services—from satellite imagery to machine learning benchmarks—ASDI specifically leverages this framework to accelerate sustainability-focused research and solutions. Through strategic collaborations with organizations like NASA, NOAA, and the UN, these programs support open access to essential environmental datasets including weather forecasts, satellite observations, air quality indices, and hydrological models. These datasets are stored in Amazon S3, enabling cloud-native analysis without requiring massive local downloads. Researchers and developers can process data directly in the cloud using scalable tools like Amazon Athena, SageMaker, and open-source Python libraries, fostering solutions in critical areas such as climate resilience, renewable energy, conservation, and disaster risk management. Together, these complementary initiatives create a powerful ecosystem that enables global collaboration and drives real-world impact in addressing environmental challenges.
 
-Building on this foundation, the **Amazon Sustainability Data Initiative (ASDI)** focuses specifically on environmental and sustainability-related datasets. ASDI supports global research efforts by providing open access to critical data such as weather forecasts, satellite observations, air quality indices, and hydrological models. These resources help drive solutions in areas such as climate resilience, renewable energy, conservation, and disaster risk management. ASDI also collaborates with organizations like NASA, NOAA, and the UN to make authoritative datasets readily available through AWS. The registry of ASDI is available at [https://registry.opendata.aws/collab/asdi](https://registry.opendata.aws/collab/asdi).
-
-The **Maxar Open Data Program**, meanwhile, provides high-resolution satellite imagery in the aftermath of natural disasters and humanitarian crises. Unlike continuous monitoring programs, Maxar's initiative is event-driven—activated during emergencies such as hurricanes, wildfires, earthquakes, and conflicts. By releasing timely, publicly available imagery, Maxar empowers responders, analysts, and volunteers with actionable insights for damage assessment, response coordination, and recovery planning. More information about Maxar Open Data is available at [https://registry.opendata.aws/maxar-open-data](https://registry.opendata.aws/maxar-open-data/).
+The **Maxar Open Data Program** make their data available through AWS Open Data and ASDI to provide high-resolution satellite imagery in the aftermath of natural disasters and humanitarian crises. Unlike continuous monitoring programs, Maxar's initiative is event-driven—activated during emergencies such as hurricanes, wildfires, earthquakes, and conflicts. By releasing timely, publicly available imagery, Maxar empowers responders, analysts, and volunteers with actionable insights for damage assessment, response coordination, and recovery planning. More information about Maxar Open Data is available at [https://registry.opendata.aws/maxar-open-data](https://registry.opendata.aws/maxar-open-data/).
 
 Together, these programs demonstrate the power of cloud-enabled open data to democratize access to geospatial information, promote global collaboration, and drive real-world impact. In this post, we demonstrate how to explore and visualize these datasets using interactive web applications and Jupyter notebooks.
 
 ## Interactive Web Applications for Geospatial Data Exploration
 
-To make these datasets more accessible to a wider audience, we’ve developed two interactive web applications that simplify data discovery and visualization. Built with Python and modern web technologies, these tools allow users to explore AWS and Maxar open data directly in the browser.
+To make these datasets more accessible to a wider audience, we’ve developed two interactive web applications that demonstrate how to simplify data discovery and visualization across complex datasets. Built with Python and modern web technologies, these tools allow users to explore AWS and Maxar open data directly in the browser.
 
-### 1. Amazon ASDI Data Explorer
+### 1. ASDI Data Explorer Demo
 
-The **Amazon ASDI Data Explorer** provides a user-friendly interface for browsing and visualizing datasets available through ASDI and the broader AWS Open Data Program. Key features include:
+The **ASDI Data Explorer Demo** provides a user-friendly interface for browsing and visualizing datasets available through ASDI and the broader AWS Open Data Program. Key features include:
 
 - Catalog browsing with spatial and temporal filtering
 - STAC-based search for satellite and environmental data
 - Interactive map-based visualization
 
-This Amazon ASDI Data Explorer is powered by [Leafmap](https://leafmap.org), an open-source Python package for interactive visualization of geospatial data, and deployed using the [Solara](https://solara.dev) web framework on [Hugging Face Spaces](https://huggingface.co/spaces).
+This ASDI Data Explorer Demo is powered by [Leafmap](https://leafmap.org), an open-source Python package for interactive visualization of geospatial data, and deployed using the [Solara](https://solara.dev) web framework on [Hugging Face Spaces](https://huggingface.co/spaces).
 
 The web app and the source code are available at:
 
@@ -32,11 +56,11 @@ The web app and the source code are available at:
 - GitHub: <https://github.com/opengeos/Amazon-ASDI>
 
 ![Amazon ASDI Data Explorer](https://github.com/user-attachments/assets/ad4f484f-e0ef-4c78-9027-694e9b3d6a93)
-**Figure 1.** The Amazon ASDI Data Explorer allows users to search and visualize Amazon ASDI datasets interactively.
+**Figure 1.** The ASDI Data Explorer Demo allows users to search and visualize datasets made available through ASDI interactively.
 
 **How to use:**
 
-1. Visit the [Amazon ASDI Data Explorer](https://huggingface.co/spaces/giswqs/Amazon-ASDI).
+1. Visit the [ASDI Data Explorer Demo](https://huggingface.co/spaces/giswqs/Amazon-ASDI).
 2. Click on the “ASDI” tab to launch the interactive map.
 3. Zoom and pan to your region of interest. Optionally, you can use the drawing tool to draw a polygon on the map to select a region of interest.
 4. In the STAC Search sidebar, choose “AWS Open Data” as the catalog source.
@@ -58,7 +82,7 @@ The **Maxar Open Data Explorer** focuses on disaster response and humanitarian m
 - View satellite image footprints on the map
 - Compare pre- and post-disaster imagery side by side
 
-This Maxar Open Data Explorer is powered by [Leafmap](https://leafmap.org) and deployed using the [Solara](https://solara.dev) web framework on [Hugging Face Spaces](https://huggingface.co/spaces).
+This Maxar Open Data Explorer is also powered by [Leafmap](https://leafmap.org) and deployed using the [Solara](https://solara.dev) web framework on [Hugging Face Spaces](https://huggingface.co/spaces).
 
 The web app and the source code are available at:
 
@@ -90,7 +114,7 @@ This tool is especially useful for emergency responders, humanitarian agencies, 
 Before we begin exploring the datasets, let's install Leafmap. If you're running this in a Jupyter notebook, you can run the following cell:
 
 ```{code-cell} ipython3
-# %pip install leafmap
+%pip install leafmap
 ```
 
 This will install Leafmap and its dependencies, including support for various geospatial data formats, cloud-optimized imagery, and interactive mapping capabilities.
@@ -143,7 +167,6 @@ Here we're using GeoPandas to read the remote GeoJSON file directly from the URL
 - **quadkey**: Microsoft's quadkey system for tile identification
 - **timestamp**: When the image was captured
 - **visual**: Direct download link to the satellite image
-- **event_name**: The disaster event name
 
 ### Visualizing Image Footprints
 
@@ -156,6 +179,8 @@ m
 ```
 
 ![image](https://github.com/user-attachments/assets/13184223-b5cc-4868-836b-39dbb05cdd70)
+
+**Figure 3.** The interactive map shows the spatial coverage of the satellite images for the Turkey earthquake.
 
 This creates an interactive map centered on the earthquake region, with blue polygons showing the spatial coverage of each satellite image. You can zoom in, pan around, and click on individual footprints to see their metadata. This visualization helps us understand the geographic extent of the available imagery and identify areas with dense coverage.
 
@@ -197,7 +222,9 @@ m
 
 ![image](https://github.com/user-attachments/assets/7c41b716-1b13-4754-857d-9df084e8bc26)
 
-In this visualization, red polygons represent pre-earthquake imagery while blue polygons show post-earthquake coverage. The `info_mode="on_click"` parameter enables interactive information popups when you click on any footprint. You can toggle layers on/off using the layer control panel, and the different colors help distinguish the temporal coverage patterns.
+**Figure 4.** The interactive map shows the spatial coverage of pre-event (red) and post-event (blue) satellite images for the Turkey earthquake.
+
+In this visualization, red polygons represent pre-earthquake imagery while blue polygons show post-earthquake coverage. As expected with Maxar’s event-driven data acquisition, there are more post-earthquake images, since imagery is typically captured in response to the event. The `info_mode="on_click"` parameter enables interactive information popups when you click on any footprint. You can toggle layers on/off using the layer control panel, and the different colors help distinguish the temporal coverage patterns.
 
 ### Selecting a Region of Interest
 
@@ -269,11 +296,9 @@ post_stac
 
 Similarly, this creates the MosaicJSON URL for the post-event imagery. These URLs point to tile services that can stream the imagery directly to our interactive map.
 
-### Creating a Split-Screen Comparison
+### Creating a Split-Map Comparison
 
 Now comes the powerful part—creating a side-by-side comparison to visualize the earthquake's impact:
-
-We re-import leafmap to ensure we're using the latest configuration (particularly important for the folium backend which handles split maps better than ipyleaflet).
 
 ```{code-cell} ipython3
 m = leafmap.Map()
@@ -289,7 +314,7 @@ m
 
 ![image](https://github.com/user-attachments/assets/1a43a737-e9ff-4c9d-b301-ff4c37787d44)
 
-+++
+**Figure 5.** The split map shows the pre-event (left) and post-event (right) satellite images for the Turkey earthquake.
 
 This creates an interactive split-screen map where you can:
 
@@ -297,8 +322,6 @@ This creates an interactive split-screen map where you can:
 - **Right side**: View the same area after the earthquake
 - **Divider**: Drag the vertical divider left or right to compare different parts of the scene
 - **Synchronization**: Both sides pan and zoom together, maintaining perfect geographic alignment
-
-The `m.set_center()` function centers the map on the most impacted area at zoom level 16, providing detailed street-level view of the earthquake damage.
 
 ### Downloading Images for Offline Analysis
 
@@ -328,10 +351,10 @@ The `leafmap.maxar_download()` function handles the download process, saving ima
 # leafmap.maxar_download(post_images)
 ```
 
-The post-event images are commented out to avoid long download times in this example, but you can uncomment this line to download the post-earthquake imagery as well. Each image is typically several megabytes in size, so consider your bandwidth and storage constraints when downloading large datasets.
+There are a lot more post-event images available for the Turkey earthquake. It may take a while to download all the images. Uncomment the above cell to download the post-event images if needed.
 
 ## Conclusions
 
-Access to high-quality geospatial data is no longer limited to technical experts with large computing resources. Thanks to open data initiatives like the AWS Open Data Program, ASDI, and the Maxar Open Data Program, coupled with intuitive tools like Leafmap and Solara, anyone can explore and visualize critical Earth data in minutes.
+Access to high-quality geospatial data is no longer limited to technical experts with large computing resources. Thanks to collaborations between open data initiatives like the AWS Open Data Program, ASDI, and the Maxar Open Data Program, coupled with intuitive tools like Leafmap and Solara, anyone can explore and visualize critical Earth data in minutes.
 
 Whether you're a researcher investigating climate trends, a student exploring land cover dynamics, or a volunteer aiding in disaster mapping, these tools offer a powerful gateway to cloud-hosted open data—turning raw datasets into actionable insight.
